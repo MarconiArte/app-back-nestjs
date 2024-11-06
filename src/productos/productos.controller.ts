@@ -1,10 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { ProductosService } from './productos.service';
 import { Producto } from './producto.entity';
+import { BuscarProductosDTO } from './dto/buscar-productos.dto';
 
 @Controller('productos')
 export class ProductosController {
     constructor(private readonly service: ProductosService) {}
+
+    @Get('buscar-productos')
+    async buscarProductos(@Query() filters: BuscarProductosDTO): Promise<Producto[]> {
+      return this.service.buscarProductos(filters);
+    }
 
     @Post()
     async crearProducto(@Body() data: Partial<Producto>): Promise<Producto> {
