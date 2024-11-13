@@ -1,15 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { Cliente } from './cliente.entity';
 import { ClienteService } from './cliente.service';
+import { BuscarClientesDTO } from './dto/buscar-clientes.dto';
 
 @Controller('cliente')
 export class ClienteController {
     constructor(private readonly service: ClienteService){}
 
     //Usar de ejemplo buscar-productos.
-    @Get()
-    async obtenerClientes(): Promise<Cliente[]> {
-      return this.service.obtenerClientes();
+    @Get('buscar-clientes')
+    async buscarClientes(@Query() filters: BuscarClientesDTO ): Promise<Cliente[]> {
+      return this.service.buscarClientes(filters);
     }
   
     @Get(':id')
