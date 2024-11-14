@@ -28,4 +28,8 @@ export class BuscarClientesDTO {
     @IsOptional()
     @IsString()
     provincia?: string;
+
+    @IsOptional()
+    @IsString()
+    localidad?: string;
 }

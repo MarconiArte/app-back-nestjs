@@ -26,4 +26,7 @@ export class Cliente  {
 
   @Column({ nullable: true })
   provincia: string;
+
+  @Column({ nullable: true })
+  localidad: string;
 }

@@ -12,7 +12,7 @@ export class ClienteService {
       ) {}
     
     async buscarClientes(filters: BuscarClientesDTO): Promise<Cliente[]> {
-        const { nombre, direccion, cuil, email, telefono, pais, provincia } = filters;
+        const { nombre, direccion, cuil, email, telefono, pais, provincia, localidad } = filters;
 
         const conditions: FindOptionsWhere<Cliente>[] = [];
 
@@ -23,6 +23,7 @@ export class ClienteService {
         if (telefono) conditions.push({ telefono: Like(`%${telefono}%`) });
         if (pais) conditions.push({ pais: Like(`%${pais}%`) });
         if (provincia) conditions.push({ provincia: Like(`%${provincia}%`) });
+        if (localidad) conditions.push({ localidad: Like(`%${localidad}%`) });
 
         if (conditions.length > 0) {
             return this.cliente.find({
