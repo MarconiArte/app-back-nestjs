@@ -1,11 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Pedido } from 'src/pedido/entities/pedido.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('cliente')
-export class Cliente  {
+@Entity('clientes')
+export class Cliente {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 255})
+  @Column({ type: 'varchar', length: 255 })
   nombre: string;
 
 
@@ -29,4 +30,7 @@ export class Cliente  {
 
   @Column({ nullable: true })
   localidad: string;
+
+  @OneToMany(() => Pedido, (pedido) => pedido.cliente)
+  pedidos: Pedido[];
 }
