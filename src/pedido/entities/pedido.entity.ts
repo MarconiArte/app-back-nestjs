@@ -1,5 +1,6 @@
 import { Cliente } from 'src/cliente/cliente.entity';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { PedidoProductoPivot } from 'src/pedidos_productos_pivot/entities/pedidos_productos_pivot';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity("pedidos")
 export class Pedido {
@@ -17,4 +18,7 @@ export class Pedido {
 
     @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
     total: number;
+
+    @OneToMany(() => PedidoProductoPivot, (pedidoProductoPivot) => pedidoProductoPivot.pedido)
+    pedidoProductoPivot: PedidoProductoPivot[];
 }

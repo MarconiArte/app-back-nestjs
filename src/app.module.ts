@@ -8,16 +8,17 @@ import { ClienteModule } from './cliente/cliente.module';
 import { Cliente } from './cliente/cliente.entity';
 import { PedidoModule } from './pedido/pedido.module';
 import { Pedido } from './pedido/entities/pedido.entity';
+import { PedidoProductoPivot } from './pedidos_productos_pivot/entities/pedidos_productos_pivot';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'database.sqlite', // Archivo SQLite que se generará en la raíz del proyecto
-      entities: [Producto, Cliente, Pedido],
+      entities: [Producto, Cliente, Pedido, PedidoProductoPivot],
       synchronize: true, // Solo para desarrollo
     }),
-    TypeOrmModule.forFeature([Producto, Cliente, Pedido]),
+    TypeOrmModule.forFeature([Producto, Cliente, Pedido, PedidoProductoPivot]),
     ProductosModule,
     ClienteModule,
     PedidoModule
