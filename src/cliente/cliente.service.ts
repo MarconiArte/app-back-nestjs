@@ -7,10 +7,10 @@ import { BuscarClientesDTO } from './dto/buscar-clientes.dto';
 @Injectable()
 export class ClienteService {
     constructor(
-        @InjectRepository(Cliente)
-        private cliente: Repository<Cliente>,
-      ) {}
-    
+	@InjectRepository(Cliente)
+		private cliente: Repository<Cliente>,
+	) {}
+
     async buscarClientes(filters: BuscarClientesDTO): Promise<Cliente[]> {
         const { nombre, direccion, cuil, email, telefono, pais, provincia, localidad } = filters;
 
@@ -34,11 +34,18 @@ export class ClienteService {
         return this.cliente.find();
     }
     
-      async obtenerCliente(id: number): Promise<Cliente | null> {
-        return this.cliente.findOneBy({ id });
-      }
-    
-      async crearCliente(cliente: Cliente): Promise<Cliente> {
-        return this.cliente.save(cliente);
-      }
+	async obtenerCliente(id: number): Promise<Cliente | null> {
+		return this.cliente.findOneBy({ id });
+	}
+
+	async crearCliente(cliente: Cliente): Promise<Cliente> {
+		return this.cliente.save(cliente);
+	}
+
+	async buscarClientePorNombre(nombre: string): Promise<Cliente | null> {
+		return this.cliente.findOne({
+			where: { nombre: Like(`%${nombre}%`) },
+		});
+	}
+	
 }
